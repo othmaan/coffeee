@@ -1,103 +1,80 @@
-/**
-* Creates a Point object representing a numerical point.  
+/** 
+* Reads file & return string content of it
 */
-function Point(num) {
-	this.x = (typeof(num) === 'number' || typeof(num) === 'string') ? new Number(num) : 0;
+function readFile(url, cb) {
+	if(typeof(url) !== 'string')
+		throw new TypeError('Incorrect type of url.')
 
-	// Methods
-	this.__proto__.toRad = function() { 
-		return this.x * Math.PI / 180;
+	// 1. Download
+	fetch(url)
+	.then(parse)
+	.then(read)
+	.catch(handleError);
+
+	// 2. Parse
+	function parse(response) {
+		return response.blob();
 	}
 
-	this.__proto__.toDeg = function() {
-		return this.x * 180 / Math.PI;
-	}
-}
-
-/**
-* Creates a Location object representing a geographic point. 
-* lat is specified in degrees. 90 to -90 
-* lng is specified in degrees. 180 to -180
-*/
-function Location(opts) {
-	// Private
-	const R = 6371e3,
-		sin = Math.sin,
-		cos = Math.cos,
-		acos = Math.acos;
-
-	// Properties
-	this.lat = opts ? new Point(opts.lat) : 0;
-	this.lng = opts ? new Point(opts.lng) : 0;
-
-	// Methods
-	this.__proto__.distanceFrom = function(location) {
-		// 1.
-		var d = -1;
-		if(!(location instanceof Location))
-			return d;
-
-		// 2.
-		var lat1 = this.lat.toRad(),
-			lat2 = location.lat.toRad(),
-			deltaLng = location.lng.toRad() - this.lng.toRad(),
-			delta = acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(deltaLng));
-		d = delta ? R * delta : -1;
-
-		// 3.
-		return d;
-	}
-}
-
-
-function CustomerCollection() {
-	// TBD
-}
-
-function Customer(opts) {
-	this.id = opts ? opts.id : 0;
-	this.name = opts ? opts.name : '';
-	this.location = opts ? new Location(opts.location) : new Location();
-
-	// Creates array of Customer objects from JSON
-	this.__proto__.fromJson = function(json) {
-		// TBD
+	// 3. Read
+	var reader = new FileReader();
+	function read(file) {
+		reader.onload = process;
+		reader.readAsText(file);
 	}
 
-	// Creates array of Customer objects from Array of objects
-	this.__proto__.fromArray = function(array) {
-		// TBD
+	// 4. Process
+	function process() {
+		var r = [];
+
+		try {
+			reader.result.split('\n').forEach(val => {
+		   		r.push(JSON.parse(val));
+			});
+		}
+		catch (e) {
+		   if(cb)
+		   	cb({data: null, error: new Error('Parsing error. Input file has incorrect format.') + e});
+		}
+		
+		
+		if(cb)
+			cb({data: r, error: null});
 	}
 
-	// Filter collection using id or location
-	this.__proto__.filter = function(customers, predicate) {
-		// TBD
-	}
-
-	this.__proto__.sort = function(customers, prodicate) {
-		// TBD
+	// 5. Handle Error
+	function handleError(e) {
+		if(cb)
+			cb({data: [], error: e});
 	}	
 }
 
 
-/** Reads file & return string content of it
-*/
-function readFile(fileName) {
-	// url = https://gist.githubusercontent.com/brianw/19896c50afa89ad4dec3/raw/6c11047887a03483c50017c1d451667fd62a53ca/gistfile1.txt
-	const reader = new FileReader();
 
-}
+(function main() {
+	// 1.
+	var url = 'https://gist.githubusercontent.com/brianw/19896c50afa89ad4dec3/raw/6c11047887a03483c50017c1d451667fd62a53ca/gistfile1.txt',
+		office = new Locationn({lat:53.3381985, lng: -6.2592576}),
+		hundredKm = 100000;
+		customers = new CustomerCollection();
 
+	// 2. Read file
+	readFile(url, cb);
 
+	// 3. Process
+	function cb(result) {
+		if(result.error) {
+			console.error('Error while fetching customers ...');
+			throw result.error;
+		}
 
-function main() {
-	// TBD
-	let office = new Location({lat:53.3381985, lng: -6.2592576});
-
-	// 1. readFile();
-
-	// 2. filter();
-
-	// 3. sort();
-
-}
+		// 1.
+		console.info('Unfiltered list of customers...');
+	    console.log(result.data);
+	    
+	    // 2.
+	    customers.fromArray(result.data);
+	    console.info('Filtered list of customers, enjoy ☕️ ...');
+	    console.log(customers.sortedBy('id').toBe().notFarFrom(office).by(hundredKm)); // KM
+	}
+})();

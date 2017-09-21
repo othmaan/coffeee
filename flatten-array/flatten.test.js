@@ -3,7 +3,7 @@
 
 	QUnit.module('Flatten Array');
 
-	test('flatten', assert => {
+	test('flatten()', assert => {
 		assert.expect(6);
 
 		// 1
