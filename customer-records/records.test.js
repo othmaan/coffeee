@@ -172,11 +172,25 @@
 		assert.throws(function(){ readFile(void 0, new Function()); }, 'can handle undefined url');
 
 		// 3
-		var proper = '',
-			malformed = '';
-		assert.throws(function(){ readFile(malformed, new Function()); }, 
-			'can handle malformed input files');
+		var proper = 'https://raw.githubusercontent.com/othmaan/intercom/master/customer-records/data/proper.txt',
+			malformed = 'https://raw.githubusercontent.com/othmaan/intercom/master/customer-records/data/malformed.txt';
+		var done = assert.async();
+		readFile(malformed, function(result) {
+			if(result.error) {
+				assert.ok(true, 'can handle input files with malformed data');
+				done();
+			}
+		});
 
+		// 4
+		var done1 = assert.async();
+		readFile(proper, function(result) {
+			if(result.data) {
+				assert.deepEqual(result.data.length, 32, 
+					'parsed array elements & number of lines in input file are equal');
+				done1();
+			}
+		});
 	});
 
 })();

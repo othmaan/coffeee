@@ -34,7 +34,7 @@ function readFile(url, cb) {
 		}
 		catch (e) {
 		   if(cb)
-		   	cb({data: null, error: new Error('Parsing error. Input file has incorrect format.') + e});
+		   	cb({data: null, error: new Error('Parsing error. Input file has incorrect format.')});
 		}
 		
 		
@@ -53,7 +53,7 @@ function readFile(url, cb) {
 
 (function main() {
 	// 1.
-	var url = 'https://gist.githubusercontent.com/brianw/19896c50afa89ad4dec3/raw/6c11047887a03483c50017c1d451667fd62a53ca/gistfile1.txt',
+	var url = 'https://raw.githubusercontent.com/othmaan/intercom/master/customer-records/data/proper.txt',
 		office = new Locationn({lat:53.3381985, lng: -6.2592576}),
 		hundredKm = 100000;
 		customers = new CustomerCollection();
@@ -69,7 +69,7 @@ function readFile(url, cb) {
 		}
 
 		// 1.
-		console.info('Unfiltered list of customers...');
+		console.info('Unfiltered list of customers ...');
 	    console.log(result.data);
 	    
 	    // 2.
