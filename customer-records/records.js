@@ -51,7 +51,8 @@ function readFile(url, cb) {
 
 
 
-(function main() {
+function main() {
+	console.log('============ Main ============');
 	// 1.
 	var url = 'https://raw.githubusercontent.com/othmaan/intercom/master/customer-records/data/proper.txt',
 		office = new Locationn({lat:53.3381985, lng: -6.2592576}),
@@ -69,12 +70,18 @@ function readFile(url, cb) {
 		}
 
 		// 1.
-		console.info('Unfiltered list of customers ...');
+		console.info('==> Unfiltered list of customers ...');
 	    console.log(result.data);
 	    
 	    // 2.
 	    customers.fromArray(result.data);
-	    console.info('Filtered list of customers, enjoy ☕️ ...');
+	    console.info('==> Filtered list of customers, enjoy ☕️ ...');
 	    console.log(customers.sortedBy('id').toBe().notFarFrom(office).by(hundredKm)); // KM
 	}
-})();
+}
+
+setTimeout(()=> {
+	main();
+}, 1500);
+
+

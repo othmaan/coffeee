@@ -1,4 +1,7 @@
 (function () {
+
+	console.log('============ Test cases ============');
+	
 	const { test } = QUnit;
 
 	QUnit.module('Flatten Array');
