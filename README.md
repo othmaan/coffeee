@@ -1,13 +1,13 @@
 # Take home test ☕️
 
-### Test Cases 
-[Run](https://htmlpreview.github.io/?https://github.com/othmaan/intercom/blob/master/runner.html)
-
-
 ### Preview
 <div>
 <img src="https://github.com/othmaan/intercom/blob/master/demo.gif" alt="demo" width="50%">
 </div>
+
+### Run test cases online
+[Run](https://htmlpreview.github.io/?https://github.com/othmaan/intercom/blob/master/runner.html)
+
 
 ### Run locally
 1. Clone repo.
@@ -15,7 +15,6 @@
 3. Open browser console.
 
 ### File structure
-## File Structure of App
 
 ```
 root/
