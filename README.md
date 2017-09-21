@@ -2,7 +2,7 @@
 
 ### Preview
 <div>
-<img src="https://github.com/othmaan/intercom/blob/master/demo.gif" alt="demo" width="60%">
+<img src="https://github.com/othmaan/intercom/blob/master/demo.gif" alt="demo" width="100%">
 </div>
 
 ### Run test cases online
