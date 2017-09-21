@@ -25,10 +25,11 @@ root/
 |        
 |
 |-- customer-records/
-|    |    ├── data/
-|    |    |    └── data.json
+|    |    ├── data/                     * Data samples
+|    |    |    ├── malformed.txt
+|    |    |    └── proper.txt
 |    |    |
-|    |    └── classes/                 * Contains all classes used in cusomer records
+|    |    └── classes/                  * Contains all classes used in cusomer records
 |    |         ├── customer.js
 |    |         └── customerCollection.js
 |    |         └── locationn.js
