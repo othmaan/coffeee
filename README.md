@@ -2,7 +2,7 @@
 
 ### Preview
 <div>
-<img src="https://github.com/othmaan/intercom/blob/master/demo.gif" alt="demo" width="50%">
+<img src="https://github.com/othmaan/intercom/blob/master/demo.gif" alt="demo" width="60%">
 </div>
 
 ### Run test cases online
@@ -18,7 +18,6 @@
 
 ```
 root/
-├-- .github/                            * GitHub files
 │  
 |-- flatten-array/
 |        ├── flatten.js                 * Contains flatten array use case
